@@ -3,10 +3,8 @@ const { checkContiguous } = require("./api")
 async function check(blocks) {
     const arr = [].concat(blocks)
     const len = blocks.length
-    let comparisons = 0
     for (let i = 0; i < len - 1; i++) {
         for (let j = i + 1; j < len; j++) {
-            comparisons++
             const isContiguous = await checkContiguous(arr[i], arr[j])
             if (isContiguous) {
                 // move j to the position arr[i+1] (next to arr[i])
@@ -25,10 +23,7 @@ async function check(blocks) {
             }
         }
     }
-    return {
-        comparisons,
-        solution: arr,
-    }
+    return arr
 }
 
 module.exports = {

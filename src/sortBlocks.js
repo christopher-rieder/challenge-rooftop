@@ -6,8 +6,7 @@ async function sortBlocks() {
     console.time('time')
     const blocks = await getBlocks()
     console.log("blocks", blocks)
-    const sortResult = await check(blocks.data)
-    const solution = sortResult.solution
+    const solution = await check(blocks.data)
     console.log("\nsolution", solution)
     const checkResult = await checkSolution(solution.join(''))
     console.log("-".repeat(40))

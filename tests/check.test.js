@@ -1,6 +1,5 @@
 const { check } = require('../src/check')
 const generateMock = require('../mocks/generateMock');
-const { statistics } = require('./util');
 
 // mocking check function.
 // using outside variable to replace the mock which to compare
@@ -23,20 +22,13 @@ for (let i = 0; i < NUMBER_OF_MOCKS; i++) {
     }))
 }
 
-// performance statistics
-let performance = {
-    numberChunks: NUMBER_OF_CHUNKS,
-    numberChunksSquared: NUMBER_OF_CHUNKS * NUMBER_OF_CHUNKS,
-}
-
 describe("check fn tests", () => {
     test.each(testCases)("Generated mock test:#%# - Success", async (blocks) => {
         mockedStringified = blocks.original.join('')
         let result = await check(blocks.shuffled)
-        statistics(performance, 'comparisons', result.comparisons)
 
-        expect(result.solution.join('')).toBe(blocks.original.join(''))
-        expect(result.solution.join('')).not.toBe(blocks.shuffled.join(''))
+        expect(result.join('')).toBe(blocks.original.join(''))
+        expect(result.join('')).not.toBe(blocks.shuffled.join(''))
     })
 
     test("Manual mock testcase - Success", async () => {
@@ -53,8 +45,8 @@ describe("check fn tests", () => {
         mockedStringified = originalString
         let result = await check(shuffled)
         // original
-        expect(result.solution.join('')).toBe(originalString)
-        expect(result.solution.join('')).not.toBe(shuffledString)
+        expect(result.join('')).toBe(originalString)
+        expect(result.join('')).not.toBe(shuffledString)
     })
 
     test('Blocks with duplicates should output a warning', async () => {
@@ -77,7 +69,7 @@ describe("check fn tests", () => {
         let result = await check(shuffled)
 
         // we take the shot to see if it's correct or not
-        let resultString = result.solution.join('')
+        let resultString = result.join('')
 
         // at least we should have the same length
         expect(resultString.length).toBe(mockedStringified.length)
@@ -88,9 +80,5 @@ describe("check fn tests", () => {
         expect(console.warn).toHaveBeenCalled()
         expect(console.warn).toHaveBeenCalledWith(expect.stringMatching('Next block not found.'))
         console.warn.mockRestore();
-    })
-
-    afterAll(() => {
-        console.log("🚀 performance 🚀", performance)
     })
 })
