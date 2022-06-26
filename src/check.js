@@ -6,16 +6,22 @@ async function check(blocks) {
     let comparisons = 0
     for (let i = 0; i < len - 1; i++) {
         for (let j = i + 1; j < len; j++) {
-            // console.log("🚀 ~ i, j, len", i, j, len)
             comparisons++
             const isContiguous = await checkContiguous(arr[i], arr[j])
             if (isContiguous) {
-                if (j !== i + 1) { // not need to swap if in order
-                    temp = arr[j];
-                    arr[j] = arr[i + 1];
-                    arr[i + 1] = temp;
-                }
+                // move j to the position arr[i+1] (next to arr[i])
+                temp = arr[j];
+                arr[j] = arr[i + 1];
+                arr[i + 1] = temp;
                 break
+            }
+
+            // next block not found. Non-deterministic behaviour.
+            // at this point the next block should have been found.
+            // correctness cannot be ensured.
+            // the blocks provided may have duplicates.
+            if (!isContiguous && j === len - 1) {
+                console.warn("Next block not found.\nCorrectness cannot be ensured.\nThere may be non-deterministic behaviour\nCheck blocks for duplicates.")
             }
         }
     }

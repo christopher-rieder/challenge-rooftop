@@ -59,6 +59,39 @@ describe("check fn tests", () => {
         expect(result.solution.join('')).not.toBe(shuffledString)
     })
 
+    test('Blocks with duplicates should output a warning', async () => {
+        // this array has duplicates, making the algorithm non-deterministic.
+        // also, in this particular case, the algorithm result will be incorrect.
+        const shuffled = [
+            'vgb', '4c6', '1em', 'obb',
+            '0s5', 's15', '34m', '4yu',
+            'xxs', '9qi', 'ai7', 'xat',
+            'v89', '23b', 'ls9', 'ema',
+            'mbk', 'ryu', 'hpl', 'ml9',
+            'm43', 'edb', 'jsr', 'rt1',
+            'ja5', 'r82', '8en', 'zon', // 8en duplicate
+            'n75', '8en', 'o1z', 'dyh'  // 8en duplicate
+        ]
+
+        mockedStringified = "vgb8enrt123bemar82ja5jsrls9o1zv89xat4c6ryu34mdyh1emedbs15obbml9n75xxs4yuai7mbk9qi8enhplzonm430s5"
+
+        jest.spyOn(console, 'warn').mockImplementation(() => { });
+        let result = await check(shuffled)
+
+        // we take the shot to see if it's correct or not
+        let resultString = result.solution.join('')
+
+        // at least we should have the same length
+        expect(resultString.length).toBe(mockedStringified.length)
+
+        // for this testcase this would be false
+        // expect(resultString).toBe(mockedStringified)
+
+        expect(console.warn).toHaveBeenCalled()
+        expect(console.warn).toHaveBeenCalledWith(expect.stringMatching('Next block not found.'))
+        console.warn.mockRestore();
+    })
+
     afterAll(() => {
         console.log("🚀 performance 🚀", performance)
     })
