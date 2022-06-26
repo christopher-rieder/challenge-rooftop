@@ -4,11 +4,8 @@ const sortBlocks = require('./src/sortBlocks');
 
 const helpText = `
   Usage:
-  --get-token   \t Get the token. Needs a EMAIL environment variable.
-  --sort-blocks \t Sorts the blocks. Needs a TOKEN environment variable.
-
-  The environment variables can be provided in a .env file if running locally
-  Or configured in the operative system or cloud configuration.
+  --get-token   \t Get the token for a email
+  --sort-blocks \t Fetch blocks, sort them and then check if the solution is correct.
 `
 
 const arg = process.argv[2]
