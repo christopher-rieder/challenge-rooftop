@@ -4,11 +4,9 @@ const { statistics } = require('./util');
 
 // mocking check function.
 // using outside variable to replace the mock which to compare
-const SIMULATED_RESPONSE_MS = 0
 let mockedStringified = ''
 jest.mock('../src/api', () => ({
-    checkContiguous: async (str1, str2) => {
-        await new Promise(r => setTimeout(r, SIMULATED_RESPONSE_MS));
+    checkContiguous: (str1, str2) => {
         return mockedStringified.includes(str1 + str2)
     },
 }));
