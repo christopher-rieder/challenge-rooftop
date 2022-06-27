@@ -1,9 +1,13 @@
 # challenge-rooftop
 
-This can be run from the command line.
+The command can be installed running `npm run i -g`.
 
-```
-  Usage:
-  --get-token            Get the token for a email
-  --sort-blocks          Fetch blocks, sort them and then check if the solution is correct.
-```
+Then it can be run using `check-challenge`.
+
+You may need to open a new terminal for running this comand.
+
+
+-- 
+
+
+It also can be run without installing, using `node .\index.js`
