@@ -1,10 +1,10 @@
-const { getBlocks, checkSolution } = require("./api")
+const { requestBlocks, checkSolution } = require("./api")
 const { check } = require("./check")
 
 // TODO: not sure about this name. is it really sorting?
 async function sortBlocks() {
     console.time('time')
-    const blocks = await getBlocks()
+    const blocks = await requestBlocks()
     console.log("blocks", blocks)
     const solution = await check(blocks.data)
     console.log("\nsolution", solution)

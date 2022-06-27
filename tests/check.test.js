@@ -23,7 +23,7 @@ for (let i = 0; i < NUMBER_OF_MOCKS; i++) {
 }
 
 describe("check fn tests", () => {
-    test.each(testCases)("Generated mock test:#%# - Success", async (blocks) => {
+    test.each(testCases)("Happy Path with generated mock #%#", async (blocks) => {
         mockedStringified = blocks.original.join('')
         let result = await check(blocks.shuffled)
 
@@ -31,7 +31,7 @@ describe("check fn tests", () => {
         expect(result.join('')).not.toBe(blocks.shuffled.join(''))
     })
 
-    test("Manual mock testcase - Success", async () => {
+    test("Happy Path with manual mock", async () => {
         const shuffled = [
             's3z1am59', 'x1iiuxx9',
             'zylil021', 'lqe89hjw',

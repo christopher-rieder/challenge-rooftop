@@ -1,8 +1,8 @@
 require('dotenv').config();
 
-const { getToken } = require('../src/api');
+const { requestToken } = require('../src/api');
 
-async function requestToken() {
+async function getToken() {
     let email = process.env.EMAIL
     const emailArgvIndex = process.argv.findIndex(arg => arg === '--email')
     if (emailArgvIndex > 0) {
@@ -14,9 +14,9 @@ async function requestToken() {
         process.exit(1)
     }
 
-    const token = await getToken(email)
+    const token = await requestToken(email)
     console.log("e-mail:\t", email)
     console.log("token:\t", token)
 }
 
-module.exports = requestToken
+module.exports = getToken

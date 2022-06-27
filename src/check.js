@@ -8,7 +8,7 @@ async function check(blocks) {
             const isContiguous = await checkContiguous(arr[i], arr[j])
             if (isContiguous) {
                 // move j to the position arr[i+1] (next to arr[i])
-                temp = arr[j];
+                const temp = arr[j];
                 arr[j] = arr[i + 1];
                 arr[i + 1] = temp;
                 break

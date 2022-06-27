@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-const requestToken = require('./src/getToken');
+const getToken = require('./src/getToken');
 const sortBlocks = require('./src/sortBlocks');
 
 const helpText = `
@@ -27,7 +27,7 @@ const helpText = `
 const arg = process.argv[2]
 
 if (arg === '--get-token') {
-    requestToken()
+    getToken()
 } else if (arg === '--sort-blocks') {
     sortBlocks()
 } else {

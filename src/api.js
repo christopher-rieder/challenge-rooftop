@@ -13,14 +13,14 @@ const urls = {
     check: "https://rooftop-career-switch.herokuapp.com/check",
 }
 
-function checkToken(token) {
+function validateToken(token) {
     if (!token || typeof token !== 'string') {
         console.error('Error: Token should be provided through a TOKEN environment variable')
         process.exit(1)
     }
 }
 
-async function getToken(email) {
+async function requestToken(email) {
     try {
         const res = await axios.get(urls.token + email)
         return res.data.token
@@ -30,8 +30,8 @@ async function getToken(email) {
     }
 }
 
-async function getBlocks() {
-    checkToken(TOKEN)
+async function requestBlocks() {
+    validateToken(TOKEN)
 
     try {
         const res = await axios.get(urls.blocks + '?token=' + TOKEN)
@@ -44,7 +44,7 @@ async function getBlocks() {
 
 // check if chunk1 and chunk2 are contiguous and in order (chunk1->chunk2)
 async function checkContiguous(chunk1, chunk2) {
-    checkToken(TOKEN)
+    validateToken(TOKEN)
     if (!chunk1 || typeof chunk1 !== 'string'
         || !chunk2 || typeof chunk2 !== 'string') {
         throw new Error('Two string chunks should be provided')
@@ -65,7 +65,7 @@ async function checkContiguous(chunk1, chunk2) {
 }
 
 async function checkSolution(stringifiedSolution) {
-    checkToken(TOKEN)
+    validateToken(TOKEN)
     if (!stringifiedSolution || typeof stringifiedSolution !== 'string') {
         throw new Error('A solution string should be provided')
     }
@@ -84,8 +84,8 @@ async function checkSolution(stringifiedSolution) {
 }
 
 module.exports = {
-    getToken,
-    getBlocks,
+    requestToken,
+    requestBlocks,
     checkContiguous,
     checkSolution,
 }
